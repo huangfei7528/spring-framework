@@ -50,6 +50,7 @@ import org.springframework.core.io.ResourceLoader;
  * @see org.springframework.core.io.ResourceLoader
  * @see org.springframework.context.ApplicationContext
  * @see org.springframework.context.ResourceLoaderAware
+ *
  */
 public interface ResourcePatternResolver extends ResourceLoader {
 
