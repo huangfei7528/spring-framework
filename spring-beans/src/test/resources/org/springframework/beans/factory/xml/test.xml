@@ -3,7 +3,7 @@
 
 <beans>
 
-	<bean id="validEmptyWithDescription" class="org.springframework.tests.sample.beans.TestBean">
+	<bean id="validEmptyWithDescription" class="org.springframework.tests.sample.beans.TestBean" lazy-init = "true">
 		<description>
 			I have no properties and I'm happy without them.
 		</description>

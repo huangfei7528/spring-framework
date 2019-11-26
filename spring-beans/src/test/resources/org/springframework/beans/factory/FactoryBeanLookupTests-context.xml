@@ -3,6 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="fooFactory" class="org.springframework.beans.factory.FooFactoryBean"/>
+	<bean id="fooFactory" class="org.springframework.beans.factory.FooFactoryBean" >
+		<property name="goodsFactoryBean" ref="goodsFactoryBean"></property>
+	</bean>
+
+	<bean id="goodsFactoryBean" class="org.springframework.beans.factory.GoodsFactoryBean">
+		<property name="fooFactoryBean" ref="fooFactory"></property>
+	</bean>
 
 </beans>

@@ -41,6 +41,18 @@ import static org.junit.Assert.*;
 public class XmlBeanDefinitionReaderTests {
 
 	@Test
+	public void testPostProcessor(){
+		ClassPathResource resource = new ClassPathResource("test.xml");
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+		reader.loadBeanDefinitions(resource);
+
+		BeanPostProcessorTest test = (BeanPostProcessorTest) factory.getBean("beanPostProcessorTest");
+		factory.addBeanPostProcessor(test);
+		test.display();
+	}
+
+	@Test
 	public void setParserClassSunnyDay() {
 		SimpleBeanDefinitionRegistry registry = new SimpleBeanDefinitionRegistry();
 		new XmlBeanDefinitionReader(registry).setDocumentReaderClass(DefaultBeanDefinitionDocumentReader.class);
@@ -55,7 +67,7 @@ public class XmlBeanDefinitionReaderTests {
 
 	@Test
 	public void withOpenInputStreamAndExplicitValidationMode() {
-		SimpleBeanDefinitionRegistry registry = new SimpleBeanDefinitionRegistry();
+		BeanDefinitionRegistry registry = new DefaultListableBeanFactory();
 		Resource resource = new InputStreamResource(getClass().getResourceAsStream("test.xml"));
 		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(registry);
 		reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_DTD);

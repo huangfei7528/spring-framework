@@ -16,9 +16,12 @@
 
 package org.springframework.beans.factory;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -36,11 +39,13 @@ import static org.junit.Assert.*;
 public class FactoryBeanLookupTests {
 	private BeanFactory beanFactory;
 
-	@Before
+	@Test
 	public void setUp() {
 		beanFactory = new DefaultListableBeanFactory();
 		new XmlBeanDefinitionReader((BeanDefinitionRegistry) beanFactory).loadBeanDefinitions(
 				new ClassPathResource("FactoryBeanLookupTests-context.xml", this.getClass()));
+		FooFactoryBean fooFactoryBean = (FooFactoryBean) beanFactory.getBean("fooFactory");
+		fooFactoryBean.say();
 	}
 
 	@Test
@@ -74,15 +79,41 @@ public class FactoryBeanLookupTests {
 	}
 }
 
-class FooFactoryBean extends AbstractFactoryBean<Foo> {
-	@Override
-	protected Foo createInstance() throws Exception {
-		return new Foo();
+class FooFactoryBean {
+
+	@Autowired
+	private GoodsFactoryBean goodsFactoryBean;
+
+	public void say(){
+		goodsFactoryBean.say();
+		System.out.println("FooFactoryBean");
 	}
 
-	@Override
-	public Class<?> getObjectType() {
-		return Foo.class;
+	public GoodsFactoryBean getGoodsFactoryBean() {
+		return goodsFactoryBean;
+	}
+
+	public void setGoodsFactoryBean(GoodsFactoryBean goodsFactoryBean) {
+		this.goodsFactoryBean = goodsFactoryBean;
+	}
+}
+
+class GoodsFactoryBean{
+
+	@Autowired
+	private FooFactoryBean fooFactoryBean;
+
+	public void say(){
+		System.out.println("GoodsFactoryBean");
+		fooFactoryBean.say();
+	}
+
+	public FooFactoryBean getFooFactoryBean() {
+		return fooFactoryBean;
+	}
+
+	public void setFooFactoryBean(FooFactoryBean fooFactoryBean) {
+		this.fooFactoryBean = fooFactoryBean;
 	}
 }
 
