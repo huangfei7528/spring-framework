@@ -42,7 +42,7 @@ public class XmlBeanDefinitionReaderTests {
 
 	@Test
 	public void testPostProcessor(){
-		ClassPathResource resource = new ClassPathResource("test.xml");
+		ClassPathResource resource = new ClassPathResource("test.xml", this.getClass());
 		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
 		reader.loadBeanDefinitions(resource);
