@@ -22,7 +22,25 @@ public class BeanTests {
 		display.display();
 	}
 
+	@Test
+	public void testCar(){
+		ClassPathResource resource = new ClassPathResource("bean-test.xml", this.getClass());
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+		reader.loadBeanDefinitions(resource);
+		Bmw bmw = (Bmw) factory.getBean("bmw");
+		bmw.display();
+	}
 
+	@Test
+	public void testStatisCar(){
+		ClassPathResource resource = new ClassPathResource("bean-test.xml", this.getClass());
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+		reader.loadBeanDefinitions(resource);
+		Hongqi bmw = (Hongqi) factory.getBean("hongqi");
+		bmw.display();
+	}
 	@Test
 	public void replacedMethod() {
 		ClassPathResource resource = new ClassPathResource("bean-test.xml", this.getClass());

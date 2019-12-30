@@ -12,9 +12,15 @@
 
 	<myTag:user id="user" email="12233445566@qq.com" userName="chenssy" />
 
+	<!-- 工厂方法-->
+	<bean id="carFactory" class="org.springframework.beans.factory.xml.beanTest.CarFactory" />
 
-	<bean id="bmw" class="org.springframework.beans.factory.xml.beanTest.Bmw"/>
-	<bean id="hongqi" class="org.springframework.beans.factory.xml.beanTest.Hongqi"/>
+	<!--<bean id="bmw" class="org.springframework.beans.factory.xml.beanTest.Bmw"/>-->
+	<bean id="bmw" factory-bean="carFactory" factory-method="createCar"/>
+	<!--<bean id="hongqi" class="org.springframework.beans.factory.xml.beanTest.Hongqi"/>-->
+	<bean id="hongqi" class="org.springframework.beans.factory.xml.beanTest.Hongqi" factory-method="createStaticCar">
+		<constructor-arg name="key" value="chenssy"/>
+	</bean>
 
 	<bean id="display" class="org.springframework.beans.factory.xml.beanTest.DisplayCar">
 		<lookup-method name="getCar" bean="bmw"/>
