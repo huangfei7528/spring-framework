@@ -516,6 +516,7 @@ class ConstructorResolver {
 			}
 
 			// 创建 Bean
+			//如果不含有构造参数
 			if (candidateList.size() == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Method uniqueCandidate = candidateList.get(0);
 				if (uniqueCandidate.getParameterCount() == 0) {
