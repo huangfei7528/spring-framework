@@ -284,15 +284,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					return ((AbstractBeanFactory) parentBeanFactory).doGetBean(
 							nameToLookup, requiredType, args, typeCheckOnly);
 				}
+				// 用明确的 args 从 parentBeanFactory 中，获取 Bean 对象
+				// 委托给构造函数 getBean() 处理
 				else if (args != null) {
-					// 用明确的 args 从 parentBeanFactory 中，获取 Bean 对象
-					// 委托给构造函数 getBean() 处理
 					// Delegation to parent with explicit args.
 					return (T) parentBeanFactory.getBean(nameToLookup, args);
 				}
+				// 用明确的 requiredType 从 parentBeanFactory 中，获取 Bean 对象
+				// 没有 args，委托给标准的 getBean() 处理
 				else if (requiredType != null) {
-					// 用明确的 requiredType 从 parentBeanFactory 中，获取 Bean 对象
-					// 没有 args，委托给标准的 getBean() 处理
 					// No args -> delegate to standard getBean method.
 					return parentBeanFactory.getBean(nameToLookup, requiredType);
 				}

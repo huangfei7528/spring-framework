@@ -22,6 +22,15 @@ public class BeanTests {
 		display.display();
 	}
 
+	@Test
+	public void testAutro() {
+		ClassPathResource resource = new ClassPathResource("bean-test.xml", this.getClass());
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+		reader.loadBeanDefinitions(resource);
+		BinLi bingli = (BinLi) factory.getBean("binli");
+		bingli.display();
+	}
 
 	@Test
 	public void replacedMethod() {
